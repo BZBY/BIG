@@ -3,10 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
+      <style>
+          *{
+              border: 1px burlywood;
+              border-radius: 6px;
+          }
+          .layout{
+              display: flex;
+              flex-direction: column;
+              background-image: url("/src/assets/1.png");
+              background-size: 100% 100%;
+              background-attachment: fixed;
+
+              width: 100%;
+              height: 100%;
+          }
+      </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>编程Blog</title>
-    <script type="module" crossorigin src="/assets/index-ea4872e0.js"></script>
-    <link rel="stylesheet" href="/assets/index-a98e007f.css">
   </head>
   <script src="marked.js"></script>
   <script>
@@ -47,7 +61,7 @@
   </script>
   <body>
     <div id="app"></div>
-    
+    <script type="module" src="/src/main.js"></script>
 
   </body>
 </html>
