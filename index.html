@@ -2,68 +2,82 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="1.ico">
       <style>
           *{
               border: 1px burlywood;
               border-radius: 6px;
+              font:italic 1em Georgia, serif;
           }
           .layout{
               display: flex;
               flex-direction: column;
-              background-image: url("/assets/1-7de91fb5.png");
+              background-image: url("/src/assets/1.png");
               background-size: 100% 100%;
               background-attachment: fixed;
 
               width: 100%;
               height: 100%;
           }
+          .el-dialog{
+
+              border-radius:10px;
+              box-shadow:0 0 0 1px cornflowerblue;
+              position: relative;
+
+          &::after {
+               content: '';
+               position: absolute;
+               left: -50%;
+               top: -50%;
+               width: 200%;
+               height: 200%;
+               background-repeat: no-repeat;
+               background-size: 50% 50%, 50% 50%;
+               background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+               background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+           }
+          }
       </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>编程Blog</title>
-    <script type="module" crossorigin src="/assets/index-1042cd64.js"></script>
-    <link rel="stylesheet" href="/assets/index-ccb398ed.css">
   </head>
-  <script src="marked.js"></script>
+  <script  type="module"  src="marked.js"></script>
   <script>
       // 切换单元格模式
-      function switchMode(cellId) {
-          let textarea = document.getElementsByClassName('textarea' + cellId);
-          let preview = document.getElementsByClassName('preview' + cellId);
-          if (textarea.style.display === 'none') {
-              textarea.style.display = 'block';
-              preview.style.display = 'none';
-          } else {
-              textarea.style.display = 'none';
-              preview.style.display = 'block';
-              // 将文本内容经markdown转化而成的html内容显示在预览模式下
-              preview.innerHTML = marked.parse(textarea.value);
-          }
-      }
-      // 自动调整输入框高度
-      function autoResize(cellId) {
-          let textarea = document.getElementsByClassName('textarea' + cellId);
-          textarea.style.height = 'auto';
-          textarea.style.height = textarea.scrollHeight + 'px';
-      }
-      // 快捷键切换模式
-      document.onkeydown = function(e) {
+      document.addEventListener('keydown', (e) => {
+          let markdown=null;
           if (e.ctrlKey) {
-              switchMode(0);
+              let cells = document.querySelectorAll('.el-input__inner');
+              cells.forEach(cell => {
+
+
+                  markdown= cell.value;
+
+
+                  let htmls = marked.parse(markdown);
+                  console.log(htmls+"s");
+                  cell.value = htmls;
+                  cell.innerHTML = cell.value;
+
+
+              });
+
           }
-      }
-      // 鼠标点击切换模式
-      document.getElementsByClassName('preview0').onclick = function() {
-          switchMode(0);
-      }
-      // 自动调整输入框高度
-      document.getElementsByClassName('textarea0').oninput = function() {
-          autoResize(0);
-      }
+          if (e.altKey) {
+              let cells = document.querySelectorAll('.el-input__inner');
+              cells.forEach(cell => {
+                  cell.innerHTML = markdown;
+              });
+          }
+
+      });
+
+
   </script>
   <body>
     <div id="app"></div>
-    
+    <script type="module" src="/src/main.js"></script>
 
   </body>
 </html>
